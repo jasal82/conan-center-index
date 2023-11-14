@@ -1223,7 +1223,10 @@ class BoostConan(ConanFile):
             includedir = f"\"{includedir}\""
             libdir = aggregated_cpp_info.libdirs[0].replace("\\", "/")
             libdir = f"\"{libdir}\""
-            lib = aggregated_cpp_info.libs[0]
+            if len(aggregated_cpp_info.libs) > 0:
+                lib = aggregated_cpp_info.libs[0]
+            else:
+                lib = aggregated_cpp_info.system_libs[0]
             version = self.dependencies[deps_name].ref.version
             return f"\nusing {name} : {version} : " \
                    f"<include>{includedir} " \
